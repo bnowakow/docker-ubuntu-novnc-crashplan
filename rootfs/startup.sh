@@ -97,4 +97,28 @@ done
 PASSWORD=
 HTTP_PASSWORD=
 
+add-apt-repository ppa:openjdk-r/ppa
+
+apt-get update
+apt-get install -y openjdk-11-jdk
+apt-get install -y wget cpio libxss1 gnome-system-monitor
+
+cd /etc/ssl/certs/java
+keytool -import -keystore cacerts -file $HOME/crashplan-chain-pem.crt -storepass changeit -noprompt
+echo 'JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/bin"' >> /etc/environment
+echo 'LD_LIBRARY_PATH="/usr/lib/jvm/java-11-openjdk-amd64/lib/server"' >> /etc/environment
+
+if [[ ! -d "/usr/local/crashplan/bin" ]]; then
+
+    cd $HOME
+    wget https://download.code42.com/installs/agent/cloud/10.0.0/303/install/CrashPlanSmb_10.0.0_15252000061000_303_Linux.tgz
+    tar zxf CrashPlanSmb*tgz
+    cd code42-install
+    echo -e "\n\n\n\n\n\n\n\n\n\n\n\n" | ./install.sh
+fi
+
+# java mx: 19000m
+
+/usr/local/crashplan/bin/service.sh start
+
 exec /usr/local/bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf

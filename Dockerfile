@@ -150,4 +150,10 @@ WORKDIR /root
 ENV HOME=/home/ubuntu \
     SHELL=/bin/bash
 HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
+
+#copy crashplan cert with chain
+COPY crashplan-chain-pem.crt $HOME
+
+VOLUME ["/usr/local/crashplan"]
+
 ENTRYPOINT ["/startup.sh"]

@@ -122,3 +122,31 @@ clobber:
 	docker rmi $(REPO)$(NAME):$(TAG) $(REPO)$(NAME):$(TAG)-$(ARCH)
 	docker builder prune --all
 
+
+# https://unix.stackexchange.com/a/471113
+# :%s/^[ ]\+/\t/g
+
+start:
+	docker-compose up -d
+	docker-compose logs -f &
+	./wait-utnil-vnc-starts.sh; ./set-inotify-limits.sh
+
+stop:
+	docker-compose stop
+
+restart:
+	docker-compose restart
+	docker-compose logs -f &
+	./wait-utnil-vnc-starts.sh; ./set-inotify-limits.sh
+
+destroy:
+	docker-compose down
+
+logs:
+	docker-compose logs -f
+
+console:
+	docker exec -it crashplan2 bash
+
+status:
+	docker ps | grep crashplan2

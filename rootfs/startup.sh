@@ -101,7 +101,7 @@ add-apt-repository ppa:openjdk-r/ppa
 
 apt-get update
 apt-get install -y openjdk-11-jdk
-apt-get install -y wget cpio libxss1 gnome-system-monitor
+apt-get install -y wget cpio libxss1 gnome-system-monitor vim less
 
 cd /etc/ssl/certs/java
 keytool -import -keystore cacerts -file $HOME/crashplan-chain-pem.crt -storepass changeit -noprompt

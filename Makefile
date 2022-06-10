@@ -150,3 +150,8 @@ console:
 
 status:
 	docker ps | grep crashplan2
+
+stats:
+	docker stats crashplan2
+
+

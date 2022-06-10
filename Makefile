@@ -128,16 +128,14 @@ clobber:
 
 start:
 	docker-compose up -d
-	docker-compose logs -f &
-	./wait-utnil-vnc-starts.sh; ./set-inotify-limits.sh
+	docker-compose logs -f
 
 stop:
 	docker-compose stop
 
 restart:
 	docker-compose restart
-	docker-compose logs -f &
-	./wait-utnil-vnc-starts.sh; ./set-inotify-limits.sh
+	docker-compose logs -f
 
 destroy:
 	docker-compose down
@@ -146,12 +144,12 @@ logs:
 	docker-compose logs -f
 
 console:
-	docker exec -it crashplan2 bash
+	docker exec -it crashplan bash
 
 status:
-	docker ps | grep crashplan2
+	docker ps | grep crashplan
 
 stats:
-	docker stats crashplan2
+	docker stats crashplan
 
 

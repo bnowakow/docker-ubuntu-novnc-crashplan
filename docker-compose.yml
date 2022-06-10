@@ -16,5 +16,5 @@ services:
                 memory: 11000M
     restart: unless-stopped
     privileged: true
-    container_name: crashplan2
+    container_name: crashplan
     

@@ -111,7 +111,7 @@ echo 'LD_LIBRARY_PATH="/usr/lib/jvm/java-11-openjdk-amd64/lib/server"' >> /etc/e
 if [[ ! -d "/usr/local/crashplan/bin" ]]; then
 
     cd $HOME
-    wget https://download.code42.com/installs/agent/cloud/10.0.0/303/install/CrashPlanSmb_10.0.0_15252000061000_303_Linux.tgz
+    wget https://download.code42.com/installs/agent/cloud/10.2.0/14/install/CrashPlanSmb_10.2.0_15252000061020_14_Linux.tgz
     tar zxf CrashPlanSmb*tgz
     cd code42-install
     echo -e "\n\n\n\n\n\n\n\n\n\n\n\n" | ./install.sh

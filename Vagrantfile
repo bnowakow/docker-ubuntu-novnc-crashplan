@@ -27,7 +27,22 @@ Vagrant.configure("2") do |config|
     git clone https://github.com/bnowakow/docker-ubuntu-novnc-crashplan.git
     cd docker-ubuntu-novnc-crashplan
     git checkout crashplan
+    # TODO make sure that image is being pulled, not built from source
     docker compose up -d
+  SHELL
+    
+  config.vm.provision "check when VNC will be started", type: "shell", inline: <<-SHELL
+    cd docker-ubuntu-novnc-crashplan
+
+    while true; do
+
+        docker compose logs | grep "Listening on"
+        if [ $? = 0 ]; then
+            echo "VNC has started"
+            exit;
+        fi
+        sleep 5;
+    done
   SHELL
 
 end

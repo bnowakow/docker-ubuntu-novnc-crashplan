@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /bin/bash # bc [[ syntax wasn't working, https://stackoverflow.com/questions/589276/how-can-i-use-bash-syntax-in-makefile-targets
 
 .PHONY: build manifest buildfat check run debug push save clean clobber
 

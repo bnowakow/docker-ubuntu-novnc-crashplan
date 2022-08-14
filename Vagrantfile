@@ -14,9 +14,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
-    mkdir -p /mnt/MargokPool/archive
+    mkdir -p /mnt/MargokPool/archive /mnt/PlexPool/plex
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive
-    
+    mount -vvv -o vers=3 10.0.2.2:/mnt/PlexPool/plex /mnt/PlexPool/plex
   SHELL
 
   #config.vm.provision "file", source: ".", destination: "~/"

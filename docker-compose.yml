@@ -6,7 +6,6 @@ services:
     image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-10.2.1-amd64
     volumes:
         - /mnt/MargokPool/archive:/mnt/Archive:ro
-        - /mnt/PlexPool/plex/crashplan-docker-data/usr-local-crashplan:/usr/local/crashplan
     environment:
         PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         USERNAME: user

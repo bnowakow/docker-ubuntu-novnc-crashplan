@@ -2,7 +2,7 @@ version: "3.3"
 services:
   crashplan:
     build: .
-    image: fredblgr/ubuntu-novnc:20.04-x86_64
+    image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-10.2.1-amd64
     volumes:
         - /mnt/MargokPool/archive:/mnt/Archive:ro
     environment:

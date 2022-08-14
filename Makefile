@@ -1,9 +1,12 @@
+SHELL := /bin/bash
+
 .PHONY: build manifest buildfat check run debug push save clean clobber
 
 # Default values for variables
-REPO  ?= fredblgr/
-NAME  ?= ubuntu-novnc
-TAG   ?= 20.04
+REPO  ?= bnowakow/
+NAME  ?= fredblgr-ubuntu-novnc
+CRASHPLAN-VERSION   ?= $$(grep download.code42 rootfs/startup.sh | sed 's/[^_]*_//' | sed 's/_.*//')
+TAG   ?= 20.04-crashplan-$(CRASHPLAN-VERSION)
 ARCH  := $$(arch=$$(uname -m); if [[ $$arch == "x86_64" ]]; then echo amd64; else echo $$arch; fi)
 RESOL   = 1440x900
 ARCHS = amd64 arm64

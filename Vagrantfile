@@ -13,26 +13,24 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "40"]
   end
 
+  config.vm.synced_folder ".", "/vagrant"
+
   config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
-    mkdir -p /mnt/MargokPool/archive /mnt/PlexPool/plex
+    mkdir -p /mnt/MargokPool/archive
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive
-    mount -vvv -o vers=3 10.0.2.2:/mnt/PlexPool/plex /mnt/PlexPool/plex
   SHELL
 
   #config.vm.provision "file", source: ".", destination: "~/"
 
 # TODO add shared dir for crashplan volume to be presisted
   config.vm.provision "configure transmission gui", type: "shell", inline: <<-SHELL
-    # TODO copy . instead of cloning git to have uncommited changes as well
-    git clone https://github.com/bnowakow/docker-ubuntu-novnc-crashplan.git
-    cd docker-ubuntu-novnc-crashplan
-    git checkout crashplan
+    cd /vagrant
     # TODO make sure that image is being pulled, not built from source
     docker compose up -d
   SHELL
     
   config.vm.provision "check when VNC will be started", type: "shell", inline: <<-SHELL
-    cd docker-ubuntu-novnc-crashplan
+    cd /vagrant
 
     while true; do
 

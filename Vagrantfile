@@ -2,7 +2,9 @@ Vagrant.configure("2") do |config|
   # for some reason ssh key auth doesn't work on 22.04, using 20.04 instead
   #config.vm.box = "ubuntu/jammy64"
   config.vm.box = "bnowakow/nordvpn-torrent"
-  
+ 
+  config.disksize.size = '500GB'
+ 
   config.vm.network "private_network", ip: "192.168.10.148"
   config.vm.network :forwarded_port, guest: 6080, host: 6080, auto_correct: true
 
@@ -14,7 +16,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
-    mkdir -p /mnt/MargokPool/archive 
+    mkdir -p /mnt/MargokPool/archive
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive
   SHELL
 

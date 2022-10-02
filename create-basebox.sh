@@ -6,3 +6,5 @@ cp ../nordvpn-torrent/Vagrantfile.basebox .
 
 ./create-basebox-torrent.sh
 
+rm create-basebox-torrent.sh Vagrantfile.basebox
+

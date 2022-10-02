@@ -130,21 +130,21 @@ clobber:
 # :%s/^[ ]\+/\t/g
 
 start:
-	docker-compose up -d
-	docker-compose logs -f
+	docker compose up -d
+	docker compose logs -f
 
 stop:
-	docker-compose stop
+	docker compose stop
 
 restart:
-	docker-compose restart
-	docker-compose logs -f
+	docker compose restart
+	docker compose logs -f
 
 destroy:
-	docker-compose down
+	docker compose down
 
 logs:
-	docker-compose logs -f
+	docker compose logs -f
 
 console:
 	docker exec -it crashplan bash

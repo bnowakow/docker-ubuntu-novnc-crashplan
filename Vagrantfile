@@ -15,6 +15,30 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "40"]
   end
 
+# was in basebox
+
+#  config.vm.provision "connect to nfs with manual workaround - /var/lib/docker", type: "shell", inline: <<-SHELL
+#    mkdir -p /var/lib/docker;
+#    mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/home/sup/code/crashplan-docker/data/var_lib_docker /var/lib/docker
+#  SHELL
+
+  config.vm.provision "install docker", type: "shell", inline: <<-SHELL
+    # https://docs.docker.com/engine/install/ubuntu/
+    apt-get remove docker docker-engine docker.io containerd runc
+    apt-get install -y ca-certificates curl gnupg lsb-release
+    mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    apt-get update
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+    # https://docs.docker.com/engine/install/linux-postinstall/
+    usermod -aG docker vagrant
+  SHELL
+
+# /was in basebox
+
   config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
     mkdir -p /mnt/MargokPool/archive
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive

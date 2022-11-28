@@ -52,6 +52,7 @@ Vagrant.configure("2") do |config|
     git clone https://github.com/bnowakow/docker-ubuntu-novnc-crashplan.git
     cd docker-ubuntu-novnc-crashplan
     git checkout crashplan
+    ./set-inotify-limits.sh
     # TODO make sure that image is being pulled, not built from source
     docker compose up -d
   SHELL

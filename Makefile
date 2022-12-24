@@ -99,6 +99,16 @@ runasroot:
 	sleep 5
 	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
 
+runpriv:
+	docker run --rm --detach --privileged \
+		--volume "${PWD}":/workspace:rw \
+		--publish 6080:80 \
+		--name $(NAME) \
+		--env "RESOLUTION=$(RESOL)" \
+		$(REPO)$(NAME):$(TAG)-$(ARCH)
+	sleep 5
+	open http://localhost:6080 || xdg-open http://localhost:6080 || echo "http://localhost:6080"
+
 debug:
 	echo "http://localhost:6080"
 	docker run --rm --tty --interactive \

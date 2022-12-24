@@ -152,7 +152,8 @@ ENV HOME=/home/ubuntu \
 HEALTHCHECK --interval=30s --timeout=5s CMD curl --fail http://127.0.0.1:6079/api/health
 
 #copy crashplan cert with chain
-COPY crashplan-chain-pem.crt $HOME
+COPY crashplan-chain-pem.crt $HOME/crashplan-chain-pem.crt
+COPY crashplan-chain-pem.crt /home/user/crashplan-chain-pem.crt
 
 VOLUME ["/usr/local/crashplan"]
 

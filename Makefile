@@ -5,7 +5,7 @@ SHELL := /bin/bash # bc [[ syntax wasn't working, https://stackoverflow.com/ques
 # Default values for variables
 REPO  ?= bnowakow/
 NAME  ?= fredblgr-ubuntu-novnc
-CRASHPLAN-VERSION   ?= $$(grep download.code42 rootfs/startup.sh | sed 's/[^_]*_//' | sed 's/_.*//')
+CRASHPLAN-VERSION   ?= $$(grep download.crashplan.com rootfs/startup.sh | sed 's/[^_]*_//' | sed 's/_.*//')
 TAG   ?= 20.04-crashplan-$(CRASHPLAN-VERSION)
 ARCH  := $$(arch=$$(uname -m); if [[ $$arch == "x86_64" ]]; then echo amd64; else echo $$arch; fi)
 RESOL   = 1440x900

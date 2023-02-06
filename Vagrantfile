@@ -40,7 +40,12 @@ Vagrant.configure("2") do |config|
 # /was in basebox
 
   config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
-    mkdir -p /mnt/MargokPool/archive
+    if [ ! -d "/mnt/MargokPool/archive" ]; then
+        mkdir -p /mnt/MargokPool/archive
+    fi
+    if [ $(mount | grep "/mnt/MargokPool/archive" | wc -l) -gt 0 ]; then 
+        umount /mnt/MargokPool/archive
+    fi
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive
   SHELL
 

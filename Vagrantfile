@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
 
 # /was in basebox
 
-  config.vm.provision "connect to nfs with manual workaround", type: "shell", inline: <<-SHELL
+  config.vm.provision "connect to nfs with manual workaround - archive", type: "shell", inline: <<-SHELL
     if [ ! -d "/mnt/MargokPool/archive" ]; then
         mkdir -p /mnt/MargokPool/archive
     fi
@@ -49,11 +49,23 @@ Vagrant.configure("2") do |config|
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/archive /mnt/MargokPool/archive
   SHELL
 
+  # TODO do a function to do above and below
+  config.vm.provision "connect to nfs with manual workaround - home", type: "shell", inline: <<-SHELL
+    if [ ! -d "/mnt/MargokPool/home/sup" ]; then
+        mkdir -p /mnt/MargokPool/home/sup
+    fi
+    if [ $(mount | grep "/mnt/MargokPool/home/sup" | wc -l) -gt 0 ]; then
+        umount /mnt/MargokPool/home/sup
+    fi
+    mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/home/sup /mnt/MargokPool/home/sup
+  SHELL
+
   #config.vm.provision "file", source: ".", destination: "~/"
 
 # TODO add shared dir for crashplan volume to be presisted
   config.vm.provision "configure transmission gui", type: "shell", inline: <<-SHELL
     # TODO copy . instead of cloning git to have uncommited changes as well
+    # TODO try using home NFS 
     git clone https://github.com/bnowakow/docker-ubuntu-novnc-crashplan.git
     cd docker-ubuntu-novnc-crashplan
     git checkout crashplan

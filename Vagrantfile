@@ -64,18 +64,13 @@ Vagrant.configure("2") do |config|
 
 # TODO add shared dir for crashplan volume to be presisted
   config.vm.provision "configure transmission gui", type: "shell", inline: <<-SHELL
-    # TODO copy . instead of cloning git to have uncommited changes as well
-    # TODO try using home NFS 
-    git clone https://github.com/bnowakow/docker-ubuntu-novnc-crashplan.git
-    cd docker-ubuntu-novnc-crashplan
-    git checkout crashplan
+    cd /mnt/MargokPool/home/sup/code/crashplan-docker
     ./set-inotify-limits.sh
-    # TODO make sure that image is being pulled, not built from source
     docker compose up -d
   SHELL
     
   config.vm.provision "check when VNC will be started", type: "shell", inline: <<-SHELL
-    cd docker-ubuntu-novnc-crashplan
+    cd /mnt/MargokPool/home/sup/code/crashplan-docker
 
     while true; do
 

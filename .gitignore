@@ -1,10 +1,11 @@
 web/yarn.lock.orig
 web/node_modules
-tests/EssaiSwing.class
+tests
+opamstuff.tgz
+opt-opam.tgz
 
+# bnowakow
 *.swp
 .vagrant/
 nordvpn-torrent.box
-Vagrantfile.basebox
-create-basebox-torrent.sh
-
+# \bnowakow

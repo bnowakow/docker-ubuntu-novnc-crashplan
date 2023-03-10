@@ -110,13 +110,12 @@ echo 'LD_LIBRARY_PATH="/usr/lib/jvm/java-11-openjdk-amd64/lib/server"' >> /etc/e
 
 if [[ ! -d "/usr/local/crashplan/bin" ]]; then
 
-    echo "141.193.213.10 download.code42.com" >> /etc/hosts
-    echo "141.193.213.11 download.code42.com" >> /etc/hosts
-
     cd $HOME
-    wget https://download.crashplan.com/installs/agent/cloud/10.4.1/19/install/CrashPlanSmb_10.4.1_15252000061041_19_Linux.tgz
-    tar zxf CrashPlanSmb*tgz
-    cd code42-install
+    # https://support.crashplan.com/hc/en-us/articles/11427606025997
+    # when updating CrashPlan version 1. update below url 2. make build 3. make push 4. update version of image in docker-compose.yml
+    wget https://download.crashplan.com/installs/agent/cloud/11.0.0/949/install/CrashPlanSmb_11.0.0_949_Linux.tgz
+    tar zxf CrashPlanSmb*.tgz
+    cd crashplan-install
     echo -e "\n\n\n\n\n\n\n\n\n\n\n\n" | ./install.sh
 fi
 

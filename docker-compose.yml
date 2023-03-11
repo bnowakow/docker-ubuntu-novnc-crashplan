@@ -9,6 +9,7 @@ services:
     volumes:
         - /mnt/MargokPool/archive:/mnt/Archive:ro
         - /mnt/MargokPool/home:/mnt/Home:ro
+        - ./data/crashplan:/usr/local/crashplan
     environment:
         PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         USERNAME: user

@@ -8,4 +8,6 @@ opt-opam.tgz
 *.swp
 .vagrant/
 nordvpn-torrent.box
+data/
 # \bnowakow
+

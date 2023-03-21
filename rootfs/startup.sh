@@ -113,7 +113,7 @@ if [[ ! -d "/usr/local/crashplan/bin" ]]; then
     cd $HOME
     # https://support.crashplan.com/hc/en-us/articles/11427606025997
     # when updating CrashPlan version 1. update below url 2. make build 3. make push 4. update version of image in docker-compose.yml
-    wget https://download.crashplan.com/installs/agent/cloud/11.0.0/949/install/CrashPlanSmb_11.0.0_949_Linux.tgz
+    wget https://download.crashplan.com/installs/agent/cloud/11.0.1/33/install/CrashPlanSmb_11.0.1_33_Linux.tgz
     tar zxf CrashPlanSmb*.tgz
     cd crashplan-install
     echo -e "\n\n\n\n\n\n\n\n\n\n\n\n" | ./install.sh

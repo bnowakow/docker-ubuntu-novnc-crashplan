@@ -1,15 +1,14 @@
 version: "3.3"
 services:
   crashplan:
-    # TODO make sure that image is being pulled, not built from source
     #build: .
     image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-11.0.1-amd64
     #image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-11.0.0-amd64
     #image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-10.4.1-amd64
     #image: bnowakow/fredblgr-ubuntu-novnc:20.04-crashplan-8.8.3-amd64
     volumes:
-        - /mnt/MargokPool/archive:/mnt/Archive:ro
-        - /mnt/MargokPool/home:/mnt/Home:ro
+        - ./data/empty:/mnt/Archive:ro
+        - ./data/empty:/mnt/Home:ro
         - ./data/crashplan:/usr/local/crashplan
     environment:
         PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

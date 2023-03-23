@@ -123,4 +123,11 @@ fi
 
 /usr/local/crashplan/bin/service.sh start
 
-exec /usr/local/bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
+#TINI_SUBREAPER="" exec /usr/local/bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
+service nginx stop
+# https://www.onurguzel.com/supervisord-restarting-and-reloading/
+service supervisor stop
+ps -ef | grep supervisord
+supervisord -n -c /etc/supervisor/supervisord.conf &
+# as non-root user:
+#su vagrant -c "x11vnc -display :1 -xkb -forever -shared -repeat -capslock &" # 1. for some reason running as root (maybe it's from supervisor) 2. for some reason can't connect via VNC and have to run this line manually from vagrant user

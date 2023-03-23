@@ -16,24 +16,9 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "40"]
   end
 
-# was in basebox
-
-#  config.vm.provision "connect to nfs with manual workaround - /var/lib/docker", type: "shell", inline: <<-SHELL
-#    mkdir -p /var/lib/docker;
-#    mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/home/sup/code/crashplan-docker/data/var_lib_docker /var/lib/docker
-#  SHELL
-
-  config.vm.provision "install docker", type: "shell", inline: <<-SHELL
-    # https://docs.docker.com/engine/install/linux-postinstall/
-    usermod -aG docker vagrant
-  SHELL
-
-# /was in basebox
-
   config.vm.provision "connect to nfs with manual workaround - archive", type: "shell", inline: <<-SHELL
     if [ ! -d "/mnt/MargokPool/archive" ]; then
         mkdir -p /mnt/MargokPool/archive
-        ln -sf /mnt/MargokPool/archive/ /mnt/Archive
     fi
     if [ $(mount | grep "/mnt/MargokPool/archive" | wc -l) -gt 0 ]; then 
         umount /mnt/MargokPool/archive
@@ -45,7 +30,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "connect to nfs with manual workaround - home", type: "shell", inline: <<-SHELL
     if [ ! -d "/mnt/MargokPool/home/sup" ]; then
         mkdir -p /mnt/MargokPool/home/sup
-        ln -sf /mnt/MargokPool/home/ /mnt/Home
     fi
     if [ $(mount | grep "/mnt/MargokPool/home/sup" | wc -l) -gt 0 ]; then
         umount /mnt/MargokPool/home/sup
@@ -53,29 +37,12 @@ Vagrant.configure("2") do |config|
     mount -vvv -o vers=3 10.0.2.2:/mnt/MargokPool/home/sup /mnt/MargokPool/home/sup
   SHELL
 
-  #config.vm.provision "file", source: ".", destination: "~/"
-
 # TODO add shared dir for crashplan volume to be presisted
   config.vm.provision "configure transmission gui", type: "shell", inline: <<-SHELL
     cd /mnt/MargokPool/home/sup/code/crashplan-docker
     ./set-inotify-limits.sh
-    #docker compose up -d
   SHELL
     
- # config.vm.provision "check when VNC will be started", type: "shell", inline: <<-SHELL
- #   cd /mnt/MargokPool/home/sup/code/crashplan-docker
-#
-#    while true; do
-#
-#        docker compose logs | grep "Listening on"
-#        if [ $? = 0 ]; then
-#            echo "VNC has started"
-#            exit;
-#        fi
-#        sleep 5;
-#    done
-#  SHELL
-
   config.vm.provision "dockerfile equivalent", type: "shell", inline: <<-SHELL
     # Avoid prompts for time zone
     export DEBIAN_FRONTEND noninteractive
@@ -113,10 +80,12 @@ Vagrant.configure("2") do |config|
         && cd ..; rm -r tini-0.19.0 v0.19.0.tar.gz
 
     # NextCloud
-    apt-get update && apt-get install -y nextcloud-desktop
+    # disabling, lasts long    
+    #apt-get update && apt-get install -y nextcloud-desktop
 
     # Firefox
-    apt-get update && apt-get install -y firefox libpci3
+    # disabling, lasts long
+    #apt-get update && apt-get install -y firefox libpci3
 
     # Killsession app
     # TODO path

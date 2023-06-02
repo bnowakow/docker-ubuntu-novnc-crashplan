@@ -48,6 +48,7 @@ echo
 
 # https://serverfault.com/questions/338097/tuning-linux-cache-settings-for-inode-caching
 vfs_cache_pressure=20;
+vfs_cache_pressure=100
 echo "prev vfs_cache_pressure   "`cat /proc/sys/vm/vfs_cache_pressure`
 echo "trying to set             $vfs_cache_pressure";
 sudo bash -c "echo $vfs_cache_pressure > /proc/sys/vm/vfs_cache_pressure"

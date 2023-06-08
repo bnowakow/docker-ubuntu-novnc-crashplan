@@ -1,0 +1,10 @@
+[Unit]
+Description=Sets inotify limits and others so crashplan can add a lot of files watches when performing backup
+
+[Service]
+ExecStart=/home/sup/code/docker-ubuntu-novnc-crashplan/set-inotify-limits.sh
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
